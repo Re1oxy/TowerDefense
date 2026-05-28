@@ -154,5 +154,32 @@ namespace TowerDefense.Views
                 (ClientSize.Width - size.Width) / 2f,
                 240);
         }
+
+        // Draw hint text at the bottom ( With emotions using Win + . )
+        private void DrawHint(Graphics g)
+        {
+            string[] lines =
+            {
+                "🏹  Archer  –  50g   |   fast, low damage",
+                "🧙  Mage    –  100g  |   slow, high damage",
+                "⚙️  Catapult – 150g  |   massive AoE damage",
+            };
+
+            using var font = new Font(Utils.Constants.FontName, 10);
+            using var brush = new SolidBrush(Color.FromArgb(140, 200, 200, 200));
+            int y = ClientSize.Height - 100;
+            foreach (var line in lines)
+            {
+                var size = g.MeasureString(line, font);
+                g.DrawString(line, font, brush,
+                    (ClientSize.Width - size.Width) / 2f, y);
+                y += 22;
+            }
+        }
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            _animTimer?.Stop();
+            base.OnFormClosed(e);
+        }
     }
 }
