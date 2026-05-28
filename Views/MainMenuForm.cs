@@ -57,6 +57,22 @@ namespace TowerDefense.Views
             Controls.Add(_btnPlay);
             Controls.Add(_btnQuit);
         }
+
+        // Create Button
+        private Button CreateButton(string text, Point location)
+        {
+            return new Button
+            {
+                Text = text,
+                Size = new Size(240, 55),
+                Location = location,
+                Font = new Font(Utils.Constants.FontName, 14, FontStyle.Bold),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand,
+                FlatAppearance = { BorderSize = 0 }
+            };
+        }
     }
 
 
