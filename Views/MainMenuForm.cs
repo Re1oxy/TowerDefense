@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -86,7 +87,40 @@ namespace TowerDefense.Views
             _animTimer.Start();
         }
 
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            var g = e.Graphics;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+
+            DrawBackground(g);
+            DrawTitle(g);
+            DrawSubtitle(g);
+            DrawHing(g);
+        }
+
+        private void DrawBackground(Graphics g)
+        {
+            // Animated grass grid
+            using var darkBrush = new SolidBrush(Color.FromArgb(25, 40, 25));
+            using var lightBrush = new SolidBrush(Color.FromArgb(35, 55, 35));
+
+            int cell = 48;
+            for (int x = 0; x < ClientSize.Width; x += cell)
+                for (int y = 0; y < ClientSize.Height; y += cell)
+                {
+                    bool checker = ((x / cell) + (y / cell)) % 2 == 0;
+                    g.FillRectangle(checker ? darkBrush : lightBrush,
+                        x, y, cell, cell);
+                }
+
+            // Dark overlay
+            using var vignette = new LinearGradientBrush(
+                new Rectangle (0,0, ClientSize.Width, ClientSize.Height),
+                Color.FromArgb(160, 0, 0, 0),
+                Color.FromArgb(60, 0, 0, 0),
+                LinearGradientMode.Vertical);
+            g.FillRectangle(vignette, 0, 0, ClientSize.Width, ClientSize.Height);
+        }
     }
-
-
 }
