@@ -143,5 +143,16 @@ namespace TowerDefense.Views
                 ClientSize.Width / 2f - 248,
                 120);
         }
+
+        private void DrawSubtitle(Graphics g)
+        {
+            string sub = "Defend your castle against 10 waves of enemies!";
+            using var font = new Font(Utils.Constants.FontName, 13, FontStyle.Italic);
+            using var brush = new SolidBrush(Color.FromArgb(180, 200, 220, 200));
+            var size = g.MeasureString(sub, font);
+            g.DrawString(sub, font, brush,
+                (ClientSize.Width - size.Width) / 2f,
+                240);
+        }
     }
 }
