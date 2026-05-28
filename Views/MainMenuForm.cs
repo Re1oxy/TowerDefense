@@ -122,5 +122,26 @@ namespace TowerDefense.Views
                 LinearGradientMode.Vertical);
             g.FillRectangle(vignette, 0, 0, ClientSize.Width, ClientSize.Height);
         }
+
+        private void DrawTitle(Graphics g)
+        {
+            string title = "TOWER DEFENSE";
+            using var font = new Font(Utils.Constants.FontName, 52, FontStyle.Bold);
+
+            // Shadow
+            using var shadowBrush = new SolidBrush(Color.FromArgb(120, 0, 0, 0));
+            g.DrawString(title, font, shadow,
+                ClientSize.Width / 2f - 248 -2, 120 - 2);
+
+            // Gradient text effect
+            using var glowBrush = new SolidBrush(Color.FromArgb(40, 100, 220, 50));
+            g.DrawString(title, font, glowBrush,
+                ClientSize.Width / 2f - 248 -2, 120 - 2);
+
+            using var mainBrush = new SolidBrush(Color.FromArgb(180, 230, 160));
+            g.DrawString(title, font, mainBrush,
+                ClientSize.Width / 2f - 248,
+                120);
+        }
     }
 }
