@@ -73,6 +73,19 @@ namespace TowerDefense.Views
                 FlatAppearance = { BorderSize = 0 }
             };
         }
+
+        private void InitializeAnimation()
+        {
+            _animTimer = new System.Windows.Forms.Timer() { Interval = 16 };
+            _animTimer.Tick += (s, e) =>
+            {
+                _animOffset += 0.02f;
+                Invalidate();
+            };
+
+            _animTimer.Start();
+        }
+
     }
 
 
